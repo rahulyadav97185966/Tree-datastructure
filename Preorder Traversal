@@ -1,0 +1,115 @@
+#include <bits/stdc++.h>
+using namespace std;
+struct Node
+{
+    int data;
+     Node *left;
+     Node * right;
+
+}*root=NULL,*p = NULL;
+void create()
+{
+    int n;
+    cout<<"how many nodes you want to create"<<"\n";
+    cin>>n;
+    int arr[n];
+    cout<<"enter values of nodes"<<endl;
+    for(int i=0;i<n;i++)
+    {
+        cin>>arr[i];
+    }
+    for(int i=0;i<n;i++)
+    {
+        if(root == NULL)
+        {
+            root = new Node;
+            root->data=arr[i];
+            root->left=NULL;
+            root->right=NULL;
+
+        }
+        else
+        {
+
+            p = root;
+            while(true)
+            {
+                if(arr[i] < p->data)
+                {
+                    if(p->left == NULL)
+                    {
+                        p->left = new Node;
+                        p=p->left;
+                        p->data=arr[i];
+                        p->left=NULL;
+                        p->right=NULL;
+                        break;
+                    }
+                    else{
+                        p=p->left;
+                    }
+                }
+                else
+                {
+                    if(p->right == NULL)
+                    {
+                        p->right = new Node;
+                        p=p->right;
+                        p->data=arr[i];
+                        p->left=NULL;
+                        p->right=NULL;
+                        break;
+                    }
+                    else
+                    {
+                        p=p->right;
+                    }
+                }
+            }
+        }
+
+    }
+}
+preorder(Node *root)
+{
+
+    if(root != NULL)
+    {
+        cout<<root->data<<" ";
+        preorder(root->left);
+        preorder(root->right);
+    }
+}
+void preorder_it(Node *root)
+{
+    if(root == NULL)
+        return;
+    stack<Node *> s;
+    s.push(root);
+    while(s.empty() == false)
+    {
+        struct Node *p = s.top();
+        cout<<p->data<<" ";
+        s.pop();
+        if(p->right)
+        {
+            s.push(p->right);
+        }
+        if(p->left)
+        {
+            s.push(p->left);
+        }
+    }
+}
+int main()
+{
+
+    create();
+    cout<<"preorder Traversal of tree with recursion is"<<"\n";
+    preorder(root);
+    cout<<"\n";
+    cout<<"preorder traversal of tree without recursion OR Tree traversal iterative"<<"\n";
+    preorder_it(root);
+
+    return 0;
+}
